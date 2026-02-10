@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mujahid Azhar - GRC Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --bg-tertiary: #1a2332;
+            --bg-card: #151d2e;
+            --accent-primary: #00d4ff;
+            --accent-secondary: #7c3aed;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-danger: #ef4444;
+            --text-primary: #f0f4f8;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: #2d3748;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Effects */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 0;
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .logo {
+            padding: 0 2rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .logo p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-tertiary);
+            color: var(--accent-primary);
+            border-left-color: var(--accent-primary);
+        }
+
+        .nav-link.active {
+            background: var(--bg-tertiary);
+            color: var(--accent-primary);
+            border-left-color: var(--accent-primary);
+        }
+
+        .nav-icon {
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Dashboard */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .metric-change {
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .metric-change.positive {
+            color: var(--accent-success);
+        }
+
+        .metric-change.negative {
+            color: var(--accent-danger);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--bg-tertiary);
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        /* Status Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-success);
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-warning);
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-danger);
+        }
+
+        .badge-info {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--accent-primary);
+        }
+
+        /* Search & Filter */
+        .controls-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.75rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        select {
+            padding: 0.75rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Manrope', sans-serif;
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            max-width: 600px;
+            width: 100%;
+            padding: 2rem;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+        }
+
+        .close-btn:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transition: width 0.3s ease;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.375rem;
+            top: 0.25rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            border: 3px solid var(--bg-card);
+        }
+
+        .timeline-date {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            height: 300px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        /* Risk Matrix */
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .risk-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .risk-low {
+            background: rgba(16, 185, 129, 0.3);
+            color: var(--accent-success);
+        }
+
+        .risk-medium {
+            background: rgba(245, 158, 11, 0.3);
+            color: var(--accent-warning);
+        }
+
+        .risk-high {
+            background: rgba(239, 68, 68, 0.3);
+            color: var(--accent-danger);
+        }
+
+        /* Framework Tags */
+        .framework-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .framework-tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* About Page Specific */
+        .about-header {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 3rem;
+        }
+
+        .about-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .about-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .experience-item {
+            margin-bottom: 3rem;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .experience-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .experience-company {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .experience-duration {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .experience-list {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        .experience-list li {
+            position: relative;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .experience-list li::before {
+            content: '▸';
+            position: absolute;
+            left: -1.5rem;
+            color: var(--accent-primary);
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .cert-item {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>GRC_PORTFOLIO</h1>
+            <p>Mujahid Azhar</p>
+        </div>
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-page="dashboard">
+                        <span class="nav-icon">📊</span>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="controls">
+                        <span class="nav-icon">🎯</span>
+                        Controls
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="policies">
+                        <span class="nav-icon">📋</span>
+                        Policies & Procedures
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="evidence">
+                        <span class="nav-icon">📁</span>
+                        Evidence Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="employees">
+                        <span class="nav-icon">👥</span>
+                        Employees & Access
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="vendors">
+                        <span class="nav-icon">🤝</span>
+                        Vendor Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="risks">
+                        <span class="nav-icon">⚠️</span>
+                        Risk Register
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="audits">
+                        <span class="nav-icon">✓</span>
+                        Audit Timeline
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="awareness">
+                        <span class="nav-icon">🎓</span>
+                        Security Awareness
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="incidents">
+                        <span class="nav-icon">🚨</span>
+                        Incidents & Deficiencies
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="roadmap">
+                        <span class="nav-icon">🗺️</span>
+                        Compliance Roadmap
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="about">
+                        <span class="nav-icon">👤</span>
+                        About Me
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page-section active">
+            <div class="container">
+                <div class="page-header">
+                    <h2>GRC Command Center</h2>
+                    <p>Real-time compliance and risk posture overview</p>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Controls Implemented</div>
+                        <div class="metric-value">87</div>
+                        <div class="metric-change positive">
+                            ↑ 12 this quarter
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Controls Operating Effectively</div>
+                        <div class="metric-value">95%</div>
+                        <div class="metric-change positive">
+                            ↑ 3% from last period
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Open Risks</div>
+                        <div class="metric-value">23</div>
+                        <div class="metric-change negative">
+                            ↓ 5 remediated
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Vendor Risk Score</div>
+                        <div class="metric-value">7.8</div>
+                        <div class="metric-change positive">
+                            ↑ 0.4 improvement
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Control Testing</h3>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Control ID</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Last Tested</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="framework-tag">AC-01</span></td>
+                                        <td>Access Control Policy Review</td>
+                                        <td><span class="badge badge-success">Passed</span></td>
+                                        <td>2026-02-08</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="framework-tag">BC-02</span></td>
+                                        <td>Backup & Recovery Testing</td>
+                                        <td><span class="badge badge-success">Passed</span></td>
+                                        <td>2026-02-07</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="framework-tag">VM-03</span></td>
+                                        <td>Vulnerability Scanning</td>
+                                        <td><span class="badge badge-warning">In Progress</span></td>
+                                        <td>2026-02-05</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Framework Coverage</h3>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600;">SOC 2</span>
+                                <span style="color: var(--accent-success);">100%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600;">ISO 27001</span>
+                                <span style="color: var(--accent-primary);">87%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 87%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600;">NIST 800-171</span>
+                                <span style="color: var(--accent-warning);">72%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 72%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Active Risks by Category</h3>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px;">
+                            <div style="color: var(--text-secondary); font-size: 0.875rem;">Access Control</div>
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-danger);">8</div>
+                        </div>
+                        <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px;">
+                            <div style="color: var(--text-secondary); font-size: 0.875rem;">Third-Party</div>
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-warning);">6</div>
+                        </div>
+                        <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px;">
+                            <div style="color: var(--text-secondary); font-size: 0.875rem;">Infrastructure</div>
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-warning);">5</div>
+                        </div>
+                        <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px;">
+                            <div style="color: var(--text-secondary); font-size: 0.875rem;">Compliance</div>
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-success);">4</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls Page -->
+        <div id="controls" class="page-section">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Control Framework</h2>
+                    <p>SOC 2 controls with ISO 27001 and NIST mappings</p>
+                </div>
+
+                <div class="controls-bar">
+                    <input type="text" id="controlSearch" class="search-input" placeholder="Search controls...">
+                    <select id="frameworkFilter">
+                        <option value="">All Frameworks</option>
+                        <option value="soc2">SOC 2</option>
+                        <option value="iso27001">ISO 27001</option>
+                        <option value="nist800-53">NIST 800-53</option>
+                        <option value="nist800-171">NIST 800-171</option>
+                    </select>
+                    <select id="statusFilter">
+                        <option value="">All Statuses</option>
+                        <option value="implemented">Implemented</option>
+                        <option value="testing">Testing</option>
+                        <option value="planned">Planned</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="openControlModal()">+ Add Control</button>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table id="controlsTable">
+                            <thead>
+                                <tr>
+                                    <th>Control ID</th>
+                                    <th>Description</th>
+                                    <th>Owner</th>
+                                    <th>Framework Mapping</th>
+                                    <th>Status</th>
+                                    <th>Evidence</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="controlsTableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Policies Page -->
+        <div id="policies" class="page-section">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Policies & Procedures</h2>
+                    <p>Information security governance documentation</p>
+                </div>
+
+                <div class="controls-bar">
+                    <input type="text" id="policySearch" class="search-input" placeholder="Search policies...">
+                    <select id="policyTypeFilter">
+                        <option value="">All Types</option>
+                        <option value="policy">Policy</option>
+                        <option value="procedure">Procedure</option>
+                        <option value="standard">Standard</option>
+                        <option value="guideline">Guideline</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="openPolicyModal()">+ Add Policy</button>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table id="policiesTable">
+                            <thead>
+                                <tr>
+                                    <th>Document Name</th>
+                                    <th>Type</th>
+                                    <th>Version</th>
+                                    <th>Owner</th>
+                                    <th>Last Review</th>
+                                    <th>Next Review</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="policiesTableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evidence Management Page -->
+        <div id="evidence" class="page-section">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Evidence Management</h2>
+                    <p>Automated and manual evidence collection</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">🤖 Automated Evidence Collection</h3>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Source</th>
+                                        <th>Type</th>
+                                        <th>Frequency</th>
+                                        <th>Last Collection</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="automatedEvidenceBody">
+                                    <!-- Populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">📄 Manual Evidence Required</h3>
+                            <button class="btn btn-secondary" onclick="openEvidenceModal()">+ Upload Evidence</button>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Evidence Name</th>
+                                        <th>Control</th>
+                                        <th>Due Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="manualEvidenceBody">
+                                    <!-- Populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employees Page -->
+        <div id="employees" class="page-section">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Employee Management</h2>
+                    <p>Access provisioning and quarterly access reviews</p>
+                </div>
+
+                <div class="controls-bar">
+                    <input type="text" id="employeeSearch" class="search-input" placeholder="Search employees...">
+                    <select id="departmentFilter">
+                        <option value="">All Departments</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="sales">Sales</option>
+                        <option value="hr">HR</option>
+                        <option value="finance">Finance</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="openEmployeeModal()">+ Add Employee</button>
+                    <button class="btn btn-secondary" onclick="initiateAccessReview()">Start Access Review</button>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table id="employeesTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Department</th>
+                                    <th>Role</th>
+                                    <th>System Access</th>
+                                    <th>Last Review</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employeesTableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vendors Page -->
+        <div id="vendors" class="page-section">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Vendor Risk Management</h2>
+                    <p>Third-party risk assessments and due diligence</p>
+                </div>
+
+                <div class="controls-bar">
+                    <input type="text" id="vendorSearch" class="search-input" placeholder="Search vendors...">
+                    <select id="riskTierFilter">
+                        <option value="">All Risk Tiers</option>
+                        <option value="critical">Critical</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="openVendorModal()">+ Add Vendor</button>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table id="vendorsTable">
+                            <thead>
+                                <tr>
+                                    <th>Vendor Name</th>
+                                    <th>Service</th>
+                                    <th>Risk Tier</th>
+                                    <th>SOC 2 Status</th>
+                                    <th>Assessment Date</th>
+                                    <th>Next Review</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vendorsTableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Risk Register Page -->
+        <div id="risks" class="page-section">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Risk Register</h2>
+                    <p>Enterprise IT and information security risk tracking</p>
+                </div>
+
+                <div class="controls-bar">
+                    <input type="text" id="riskSearch" class="search-input" placeholder="Search risks...">
+                    <select id="riskCategoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="access">Access Control</option>
+                        <option value="thirdparty">Third-Party</option>
+                        <option value="infrastructure">Infrastructure</option>
+                        <option value="compliance">Compliance</option>
+                        <option value="operational">Operational</option>
+                    </select>
+                    <select id="riskLevelFilter">
+                        <option value="">All Risk Levels</option>
+                        <option value="critical">Critical</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="openRiskModal()">+ Add Risk</button>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table id="risksTable">
+                            <thead>
+                                <tr>
+                                    <th>Risk ID</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Inherent Risk</th>
+                                    <th>Residual Risk</th>
+                                    <th>Owner</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="risksTableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audit Timeline Page -->
+        <div id="audits" class="page-section">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Audit History & Timeline</h2>
+                    <p>SOC 2 Type I/II and compliance audit milestones</p>
+                </div>
+
+                <div class="card">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">September 2024</div>
+                            <div class="timeline-content">
+                                <h4 style="margin-bottom: 0.5rem; font-weight: 700;">SOC 2 Type II - Clean Report ✓</h4>
+                                <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Achieved SOC 2 Type II certification with zero audit findings</p>
+                                <span class="badge badge-success">Completed</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">April 2024</div>
+                            <div class="timeline-content">
+                                <h4 style="margin-bottom: 0.5rem; font-weight: 700;">SOC 2 Type I Certification ✓</h4>
+                                <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Completed Type I audit in 5 months with zero findings</p>
+                                <span class="badge badge-success">Completed</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">March 2024</div>
+                            <div class="timeline-content">
+                                <h4 style="margin-bottom: 0.5rem; font-weight: 700;">21 CFR Part 11 Gap Analysis</h4>
+                                <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Completed compliance readiness assessment for Linepulse product</p>
+                                <span class="badge badge-info">Assessment</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">February 2024</div>
+                            <div class="timeline-content">
+                                <h4 style="margin-bottom: 0.5rem; font-weight: 700;">NIST SP 800-171 Gap Assessment</h4>
+                                <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Performed gap analysis and defined remediation roadmap</p>
+                                <span class="badge badge-info">Assessment</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">May 2024</div>
+                            <div class="timeline-content">
+                                <h4 style="margin-bottom: 0.5rem; font-weight: 700;">External Penetration Testing</h4>
+                                <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Annual penetration test across 50+ cloud servers - 95% vulnerability reduction</p>
+                                <span class="badge badge-success">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Awareness Page -->
+        <div id="awareness" class="page-section">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Security Awareness Program</h2>
+                    <p>Training completion and phishing simulation tracking</p>
+                </div>
+
+                <div class="metrics-grid" style="margin-bottom: 2rem;">
+                    <div class="metric-card">
+                        <div class="metric-label">Training Completion</div>
+                        <div class="metric-value">92%</div>
+                        <div class="metric-change positive">↑ 8% this quarter</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Phishing Click Rate</div>
+                        <div class="metric-value">4%</div>
+                        <div class="metric-change positive">↓ 11% improvement</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Simulations Sent</div>
+                        <div class="metric-value">48</div>
+                        <div class="metric-change">This quarter</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Training Modules</h3>
+                        <button class="btn btn-primary">+ Add Training</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Module Name</th>
+                                    <th>Type</th>
+                                    <th>Assigned</th>
+                                    <th>Completed</th>
+                                    <th>Completion Rate</th>
+                                    <th>Due Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Security Fundamentals</td>
+                                    <td><span class="badge badge-info">Required</span></td>
+                                    <td>150</td>
+                                    <td>142</td>
+                                    <td>95%</td>
+                                    <td>2026-03-01</td>
+                                </tr>
+                                <tr>
+                                    <td>Phishing Awareness</td>
+                                    <td><span class="badge badge-info">Required</span></td>
+                                    <td>150</td>
+                                    <td>138</td>
+                                    <td>92%</td>
+                                    <td>2026-03-01</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Protection</td>
+                                    <td><span class="badge badge-success">Optional</span></td>
+                                    <td>75</td>
+                                    <td>68</td>
+                                    <td>91%</td>
+                                    <td>2026-03-15</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Incidents Page -->
+        <div id="incidents" class="page-section">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Incident & Deficiency Management</h2>
+                    <p>Security incidents and audit finding remediation</p>
+                </div>
+
+                <div class="controls-bar">
+                    <input type="text" class="search-input" placeholder="Search incidents...">
+                    <select>
+                        <option value="">All Types</option>
+                        <option value="incident">Security Incident</option>
+                        <option value="deficiency">Audit Deficiency</option>
+                        <option value="finding">Penetration Test Finding</option>
+                    </select>
+                    <select>
+                        <option value="">All Statuses</option>
+                        <option value="open">Open</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="openIncidentModal()">+ Log Incident</button>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Severity</th>
+                                    <th>Owner</th>
+                                    <th>Status</th>
+                                    <th>Date Opened</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="incidentsTableBody">
+                                <tr>
+                                    <td>INC-2026-001</td>
+                                    <td>Security Incident</td>
+                                    <td>Suspicious login attempts detected</td>
+                                    <td><span class="badge badge-warning">Medium</span></td>
+                                    <td>Security Team</td>
+                                    <td><span class="badge badge-success">Resolved</span></td>
+                                    <td>2026-02-01</td>
+                                    <td><button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>DEF-2025-012</td>
+                                    <td>Audit Deficiency</td>
+                                    <td>Access review documentation incomplete</td>
+                                    <td><span class="badge badge-danger">High</span></td>
+                                    <td>M. Azhar</td>
+                                    <td><span class="badge badge-warning">In Progress</span></td>
+                                    <td>2026-01-15</td>
+                                    <td><button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roadmap Page -->
+        <div id="roadmap" class="page-section">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Compliance Roadmap</h2>
+                    <p>Strategic compliance initiatives and project tracking</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                    <div class="card">
+                        <h3 style="margin-bottom: 1rem; font-size: 1.25rem; font-weight: 700;">Q1 2026</h3>
+                        <div style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+                            <div style="font-weight: 600; margin-bottom: 0.5rem;">ISO 27001 Certification</div>
+                            <div class="progress-bar" style="margin-bottom: 0.5rem;">
+                                <div class="progress-fill" style="width: 87%;"></div>
+                            </div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">87% Complete</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+                            <div style="font-weight: 600; margin-bottom: 0.5rem;">Access Review Automation</div>
+                            <div class="progress-bar" style="margin-bottom: 0.5rem;">
+                                <div class="progress-fill" style="width: 45%;"></div>
+                            </div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">45% Complete</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-bottom: 1rem; font-size: 1.25rem; font-weight: 700;">Q2 2026</h3>
+                        <div style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+                            <div style="font-weight: 600; margin-bottom: 0.5rem;">NIST 800-171 Compliance</div>
+                            <div class="progress-bar" style="margin-bottom: 0.5rem;">
+                                <div class="progress-fill" style="width: 72%;"></div>
+                            </div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">72% Complete</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+                            <div style="font-weight: 600; margin-bottom: 0.5rem;">Vendor Risk Program Expansion</div>
+                            <div class="progress-bar" style="margin-bottom: 0.5rem;">
+                                <div class="progress-fill" style="width: 30%;"></div>
+                            </div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">30% Complete</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-bottom: 1rem; font-size: 1.25rem; font-weight: 700;">Q3 2026</h3>
+                        <div style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+                            <div style="font-weight: 600; margin-bottom: 0.5rem;">SOC 2 Type II Renewal</div>
+                            <div class="progress-bar" style="margin-bottom: 0.5rem;">
+                                <div class="progress-fill" style="width: 15%;"></div>
+                            </div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">15% Complete</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--bg-tertiary); border-radius: 8px;">
+                            <div style="font-weight: 600; margin-bottom: 0.5rem;">GRC Tool Integration</div>
+                            <div class="progress-bar" style="margin-bottom: 0.5rem;">
+                                <div class="progress-fill" style="width: 0%;"></div>
+                            </div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">Planning Phase</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Page -->
+        <div id="about" class="page-section">
+            <div class="container">
+                <div class="about-header">
+                    <h1>Mujahid Azhar</h1>
+                    <p class="about-subtitle">InfoSec GRC Specialist | SOC 2 Type I & II | IT & Cyber Risk | ISO 27001 | NIST</p>
+                    <div style="margin-top: 1.5rem;">
+                        <a href="mailto:mujahid.azhar96@gmail.com" class="btn btn-primary" style="margin-right: 1rem; text-decoration: none; display: inline-block;">Email Me</a>
+                        <a href="https://www.linkedin.com/in/mohamedmujahid-azhar" target="_blank" class="btn btn-secondary" style="text-decoration: none; display: inline-block;">LinkedIn Profile</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 1rem;">Professional Summary</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.8;">
+                        I help organizations build defensible security and compliance programs that pass audits, manage risk effectively, and support business growth. I specialize in translating complex regulatory and compliance requirements into practical, risk-based controls across cloud and SaaS environments. My experience includes leading SOC 2 Type I and Type II audits from readiness through certification, building governance and control frameworks, and managing enterprise-wide IT and information security risk.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 1.5rem;">Key Expertise</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
+                            <strong style="color: var(--text-primary);">SOC 2 Program Leadership:</strong> End-to-end ownership including control design, testing, evidence management, and auditor coordination with clean audit outcomes
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
+                            <strong style="color: var(--text-primary);">Risk Assessment:</strong> IT and third-party risk assessments covering systems, vendors, and cloud infrastructure
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
+                            <strong style="color: var(--text-primary);">Multi-Framework Compliance:</strong> Control design and testing aligned to SOC 2, ISO 27001, NIST CSF, and NIST 800-53/171
+                        </li>
+                        <li style="padding: 0.75rem 0; color: var(--text-secondary);">
+                            <strong style="color: var(--text-primary);">Cross-Functional Collaboration:</strong> Strong partnership with engineering, IT, legal, and leadership teams
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 1.5rem;">Professional Experience</h3>
+                    
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div>
+                                <div class="experience-title">InfoSec GRC Specialist</div>
+                                <div class="experience-company">Acerta</div>
+                            </div>
+                            <div class="experience-duration">April 2024 - Present</div>
+                        </div>
+                        <ul class="experience-list">
+                            <li>Built SOC 2 Type I program from ground up, achieving Type I attestation in 5 months with zero audit findings</li>
+                            <li>Executed organization's first SOC 2 Type II audit, resulting in clean Type II report with zero findings</li>
+                            <li>Led 21 CFR Part 11 compliance readiness and NIST SP 800-171 gap assessment</li>
+                            <li>Owned IT and security risk register, tracking remediation and escalating material risks</li>
+                            <li>Managed security awareness program including phishing simulations</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div>
+                                <div class="experience-title">Information Technology Security Analyst</div>
+                                <div class="experience-company">Wysdom</div>
+                            </div>
+                            <div class="experience-duration">September 2023 - May 2024</div>
+                        </div>
+                        <ul class="experience-list">
+                            <li>Led SOC 2 Type II compliance operations including control execution and evidence collection</li>
+                            <li>Monitored and triaged 100+ security alerts daily across web applications</li>
+                            <li>Conducted enterprise risk assessments across systems and third-party vendors</li>
+                            <li>Partnered with development teams to integrate security into SDLC</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div>
+                                <div class="experience-title">Junior IT Security Analyst</div>
+                                <div class="experience-company">Wysdom</div>
+                            </div>
+                            <div class="experience-duration">February 2023 - September 2023</div>
+                        </div>
+                        <ul class="experience-list">
+                            <li>Achieved 95% reduction in vulnerabilities through penetration testing across 50+ cloud servers</li>
+                            <li>Managed patch management program achieving 98% compliance and 85% vulnerability reduction</li>
+                            <li>Developed and tested incident response, disaster recovery, and business continuity plans</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 1.5rem;">Education & Certifications</h3>
+                    <div style="margin-bottom: 2rem;">
+                        <div style="font-weight: 700; font-size: 1.125rem; margin-bottom: 0.25rem;">Master of Information Technology Security</div>
+                        <div style="color: var(--accent-primary); margin-bottom: 0.25rem;">Ontario Tech University</div>
+                        <div style="color: var(--text-secondary); font-size: 0.875rem;">2021 - 2023</div>
+                    </div>
+                    <div style="margin-bottom: 2rem;">
+                        <div style="font-weight: 700; font-size: 1.125rem; margin-bottom: 0.25rem;">Bachelor's Degree - Computer Networks and Security</div>
+                        <div style="color: var(--accent-primary); margin-bottom: 0.25rem;">Staffordshire University</div>
+                        <div style="color: var(--text-secondary); font-size: 0.875rem;">2016 - 2019</div>
+                    </div>
+
+                    <div class="cert-grid">
+                        <div class="cert-item">SOC Essentials by SOC Experts</div>
+                        <div class="cert-item">Certified Linux Network Administrator</div>
+                        <div class="cert-item">UEMS Product Associate</div>
+                        <div class="cert-item">ELearnSecurity Junior Penetration Tester</div>
+                        <div class="cert-item">NSE 1 Network Security Associate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <div id="controlModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Control</h3>
+                <button class="close-btn" onclick="closeControlModal()">&times;</button>
+            </div>
+            <form id="controlForm" onsubmit="saveControl(event)">
+                <div class="form-group">
+                    <label class="form-label">Control ID</label>
+                    <input type="text" class="form-input" name="controlId" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea" name="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Owner</label>
+                    <input type="text" class="form-input" name="owner" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Framework</label>
+                    <select class="form-select" name="framework" required>
+                        <option value="soc2">SOC 2</option>
+                        <option value="iso27001">ISO 27001</option>
+                        <option value="nist800-53">NIST 800-53</option>
+                        <option value="nist800-171">NIST 800-171</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" name="status" required>
+                        <option value="implemented">Implemented</option>
+                        <option value="testing">Testing</option>
+                        <option value="planned">Planned</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Control</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Data Storage
+        const DATA_KEY = 'grcPortfolioData';
+
+        // Initialize data structure
+        let appData = {
+            controls: [
+                { id: 'CC1.1', description: 'COSO Principle 1: Organization demonstrates commitment to integrity and ethical values', owner: 'M. Azhar', framework: 'SOC 2 CC1.1 | ISO 27001 A.5.1 | NIST AC-1', status: 'implemented', evidence: 3 },
+                { id: 'CC2.1', description: 'COSO Principle 6: Organization specifies objectives with clarity', owner: 'M. Azhar', framework: 'SOC 2 CC2.1 | ISO 27001 A.6.1 | NIST PM-9', status: 'implemented', evidence: 2 },
+                { id: 'CC3.1', description: 'COSO Principle 10: Organization selects and develops general controls', owner: 'IT Director', framework: 'SOC 2 CC3.1 | ISO 27001 A.8.1 | NIST CM-2', status: 'implemented', evidence: 5 },
+                { id: 'CC6.1', description: 'Organization implements logical access security measures', owner: 'Security Team', framework: 'SOC 2 CC6.1 | ISO 27001 A.9.1 | NIST AC-2', status: 'implemented', evidence: 8 },
+                { id: 'CC7.2', description: 'Organization monitors system components', owner: 'SOC Team', framework: 'SOC 2 CC7.2 | ISO 27001 A.12.4 | NIST SI-4', status: 'testing', evidence: 4 },
+                { id: 'A1.1', description: 'Organization maintains availability commitments', owner: 'Infrastructure', framework: 'SOC 2 A1.1 | ISO 27001 A.17.1 | NIST CP-2', status: 'implemented', evidence: 6 }
+            ],
+            policies: [
+                { name: 'Information Security Policy', type: 'policy', version: '2.1', owner: 'M. Azhar', lastReview: '2026-01-15', nextReview: '2026-07-15', status: 'approved' },
+                { name: 'Access Control Procedure', type: 'procedure', version: '1.8', owner: 'IT Director', lastReview: '2026-02-01', nextReview: '2026-08-01', status: 'approved' },
+                { name: 'Incident Response Plan', type: 'procedure', version: '3.2', owner: 'Security Team', lastReview: '2025-12-10', nextReview: '2026-06-10', status: 'approved' },
+                { name: 'Data Classification Standard', type: 'standard', version: '1.4', owner: 'M. Azhar', lastReview: '2026-01-20', nextReview: '2026-07-20', status: 'approved' },
+                { name: 'Vendor Risk Assessment Guideline', type: 'guideline', version: '2.0', owner: 'M. Azhar', lastReview: '2025-11-30', nextReview: '2026-05-30', status: 'under review' },
+                { name: 'Business Continuity Plan', type: 'procedure', version: '2.5', owner: 'COO', lastReview: '2026-01-05', nextReview: '2026-07-05', status: 'approved' }
+            ],
+            automatedEvidence: [
+                { source: 'AWS CloudTrail', type: 'Access Logs', frequency: 'Daily', lastCollection: '2026-02-10', status: 'active' },
+                { source: 'GitHub', type: 'Code Reviews', frequency: 'Weekly', lastCollection: '2026-02-09', status: 'active' },
+                { source: 'Okta', type: 'User Provisioning', frequency: 'Daily', lastCollection: '2026-02-10', status: 'active' },
+                { source: 'Qualys', type: 'Vulnerability Scans', frequency: 'Weekly', lastCollection: '2026-02-08', status: 'active' },
+                { source: 'Jira', type: 'Change Tickets', frequency: 'Daily', lastCollection: '2026-02-10', status: 'active' }
+            ],
+            manualEvidence: [
+                { name: 'Q4 2025 Access Review', control: 'CC6.1', dueDate: '2026-02-15', status: 'pending' },
+                { name: 'Board Meeting Minutes', control: 'CC1.1', dueDate: '2026-02-20', status: 'submitted' },
+                { name: 'DR Test Results', control: 'A1.1', dueDate: '2026-03-01', status: 'pending' }
+            ],
+            employees: [
+                { name: 'Sarah Chen', department: 'engineering', role: 'Senior Engineer', access: ['AWS', 'GitHub', 'Jira', 'Confluence'], lastReview: '2025-12-15' },
+                { name: 'Michael Torres', department: 'sales', role: 'Sales Director', access: ['Salesforce', 'HubSpot', 'Slack'], lastReview: '2025-12-18' },
+                { name: 'Jessica Park', department: 'hr', role: 'HR Manager', access: ['BambooHR', 'Greenhouse', 'Slack'], lastReview: '2025-12-20' },
+                { name: 'David Kim', department: 'engineering', role: 'DevOps Lead', access: ['AWS', 'GitHub', 'DataDog', 'PagerDuty'], lastReview: '2025-12-16' },
+                { name: 'Amanda Johnson', department: 'finance', role: 'Controller', access: ['QuickBooks', 'Expensify', 'Bill.com'], lastReview: '2025-12-22' }
+            ],
+            vendors: [
+                { name: 'AWS', service: 'Cloud Infrastructure', riskTier: 'critical', soc2Status: 'Valid', assessmentDate: '2025-11-15', nextReview: '2026-05-15' },
+                { name: 'Okta', service: 'Identity Management', riskTier: 'critical', soc2Status: 'Valid', assessmentDate: '2025-12-01', nextReview: '2026-06-01' },
+                { name: 'DataDog', service: 'Monitoring & Logging', riskTier: 'high', soc2Status: 'Valid', assessmentDate: '2025-10-20', nextReview: '2026-04-20' },
+                { name: 'Zendesk', service: 'Customer Support', riskTier: 'medium', soc2Status: 'Valid', assessmentDate: '2026-01-10', nextReview: '2026-07-10' },
+                { name: 'Mailchimp', service: 'Email Marketing', riskTier: 'low', soc2Status: 'Valid', assessmentDate: '2025-09-15', nextReview: '2026-03-15' }
+            ],
+            risks: [
+                { id: 'RISK-001', description: 'Insufficient MFA coverage for administrative accounts', category: 'access', inherent: 'high', residual: 'medium', owner: 'M. Azhar', status: 'mitigating' },
+                { id: 'RISK-002', description: 'Third-party vendor lacks SOC 2 certification', category: 'thirdparty', inherent: 'high', residual: 'high', owner: 'Procurement', status: 'open' },
+                { id: 'RISK-003', description: 'Legacy systems pending security patch deployment', category: 'infrastructure', inherent: 'medium', residual: 'low', owner: 'IT Operations', status: 'mitigating' },
+                { id: 'RISK-004', description: 'Incomplete disaster recovery documentation', category: 'operational', inherent: 'medium', residual: 'medium', owner: 'Infrastructure', status: 'open' },
+                { id: 'RISK-005', description: 'Access review process manual and time-intensive', category: 'access', inherent: 'medium', residual: 'medium', owner: 'M. Azhar', status: 'accepted' }
+            ]
+        };
+
+        // Load data from localStorage
+        function loadData() {
+            const saved = localStorage.getItem(DATA_KEY);
+            if (saved) {
+                appData = JSON.parse(saved);
+            }
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem(DATA_KEY, JSON.stringify(appData));
+        }
+
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.dataset.page;
+                
+                // Update active states
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Show page
+                document.querySelectorAll('.page-section').forEach(section => section.classList.remove('active'));
+                document.getElementById(page).classList.add('active');
+                
+                // Render page content
+                renderPage(page);
+            });
+        });
+
+        // Render page content
+        function renderPage(page) {
+            switch(page) {
+                case 'controls':
+                    renderControls();
+                    break;
+                case 'policies':
+                    renderPolicies();
+                    break;
+                case 'evidence':
+                    renderEvidence();
+                    break;
+                case 'employees':
+                    renderEmployees();
+                    break;
+                case 'vendors':
+                    renderVendors();
+                    break;
+                case 'risks':
+                    renderRisks();
+                    break;
+            }
+        }
+
+        // Render Controls
+        function renderControls() {
+            const tbody = document.getElementById('controlsTableBody');
+            tbody.innerHTML = appData.controls.map(control => `
+                <tr>
+                    <td><span class="framework-tag">${control.id}</span></td>
+                    <td>${control.description}</td>
+                    <td>${control.owner}</td>
+                    <td><div class="framework-tags">${control.framework.split('|').map(f => `<span class="framework-tag">${f.trim()}</span>`).join('')}</div></td>
+                    <td><span class="badge badge-${control.status === 'implemented' ? 'success' : 'warning'}">${control.status}</span></td>
+                    <td>${control.evidence} files</td>
+                    <td><button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">View</button></td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Policies
+        function renderPolicies() {
+            const tbody = document.getElementById('policiesTableBody');
+            tbody.innerHTML = appData.policies.map(policy => `
+                <tr>
+                    <td>${policy.name}</td>
+                    <td><span class="badge badge-info">${policy.type}</span></td>
+                    <td>${policy.version}</td>
+                    <td>${policy.owner}</td>
+                    <td>${policy.lastReview}</td>
+                    <td>${policy.nextReview}</td>
+                    <td><span class="badge badge-${policy.status === 'approved' ? 'success' : 'warning'}">${policy.status}</span></td>
+                    <td><button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">View</button></td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Evidence
+        function renderEvidence() {
+            const automatedBody = document.getElementById('automatedEvidenceBody');
+            automatedBody.innerHTML = appData.automatedEvidence.map(e => `
+                <tr>
+                    <td>${e.source}</td>
+                    <td>${e.type}</td>
+                    <td>${e.frequency}</td>
+                    <td>${e.lastCollection}</td>
+                    <td><span class="badge badge-success">${e.status}</span></td>
+                </tr>
+            `).join('');
+
+            const manualBody = document.getElementById('manualEvidenceBody');
+            manualBody.innerHTML = appData.manualEvidence.map(e => `
+                <tr>
+                    <td>${e.name}</td>
+                    <td><span class="framework-tag">${e.control}</span></td>
+                    <td>${e.dueDate}</td>
+                    <td><span class="badge badge-${e.status === 'submitted' ? 'success' : 'warning'}">${e.status}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Employees
+        function renderEmployees() {
+            const tbody = document.getElementById('employeesTableBody');
+            tbody.innerHTML = appData.employees.map(emp => `
+                <tr>
+                    <td>${emp.name}</td>
+                    <td><span class="badge badge-info">${emp.department}</span></td>
+                    <td>${emp.role}</td>
+                    <td>${emp.access.join(', ')}</td>
+                    <td>${emp.lastReview}</td>
+                    <td><button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">View Access</button></td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Vendors
+        function renderVendors() {
+            const tbody = document.getElementById('vendorsTableBody');
+            tbody.innerHTML = appData.vendors.map(vendor => `
+                <tr>
+                    <td>${vendor.name}</td>
+                    <td>${vendor.service}</td>
+                    <td><span class="badge badge-${vendor.riskTier === 'critical' ? 'danger' : vendor.riskTier === 'high' ? 'warning' : 'success'}">${vendor.riskTier}</span></td>
+                    <td><span class="badge badge-success">${vendor.soc2Status}</span></td>
+                    <td>${vendor.assessmentDate}</td>
+                    <td>${vendor.nextReview}</td>
+                    <td><button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">View</button></td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Risks
+        function renderRisks() {
+            const tbody = document.getElementById('risksTableBody');
+            tbody.innerHTML = appData.risks.map(risk => `
+                <tr>
+                    <td><span class="framework-tag">${risk.id}</span></td>
+                    <td>${risk.description}</td>
+                    <td><span class="badge badge-info">${risk.category}</span></td>
+                    <td><span class="badge badge-${risk.inherent === 'high' ? 'danger' : 'warning'}">${risk.inherent}</span></td>
+                    <td><span class="badge badge-${risk.residual === 'low' ? 'success' : 'warning'}">${risk.residual}</span></td>
+                    <td>${risk.owner}</td>
+                    <td><span class="badge badge-${risk.status === 'open' ? 'danger' : risk.status === 'mitigating' ? 'warning' : 'info'}">${risk.status}</span></td>
+                    <td><button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.75rem;">View</button></td>
+                </tr>
+            `).join('');
+        }
+
+        // Modal Functions
+        function openControlModal() {
+            document.getElementById('controlModal').classList.add('active');
+        }
+
+        function closeControlModal() {
+            document.getElementById('controlModal').classList.remove('active');
+        }
+
+        function saveControl(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            appData.controls.push({
+                id: formData.get('controlId'),
+                description: formData.get('description'),
+                owner: formData.get('owner'),
+                framework: formData.get('framework'),
+                status: formData.get('status'),
+                evidence: 0
+            });
+            
+            saveData();
+            renderControls();
+            closeControlModal();
+            form.reset();
+        }
+
+        function openPolicyModal() {
+            alert('Policy modal would open here - implement similar to control modal');
+        }
+
+        function openEvidenceModal() {
+            alert('Evidence upload modal would open here');
+        }
+
+        function openEmployeeModal() {
+            alert('Employee modal would open here');
+        }
+
+        function openVendorModal() {
+            alert('Vendor modal would open here');
+        }
+
+        function openRiskModal() {
+            alert('Risk modal would open here');
+        }
+
+        function openIncidentModal() {
+            alert('Incident modal would open here');
+        }
+
+        function initiateAccessReview() {
+            alert('Access review workflow would initiate here');
+        }
+
+        // Search functionality
+        document.getElementById('controlSearch')?.addEventListener('input', (e) => {
+            const search = e.target.value.toLowerCase();
+            document.querySelectorAll('#controlsTableBody tr').forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(search) ? '' : 'none';
+            });
+        });
+
+        // Initialize
+        loadData();
+        renderControls();
+    </script>
+</body>
+</html>
